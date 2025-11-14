@@ -1,8 +1,14 @@
 <template>
   <Users />
-
-  <AuthRegister />
   <AuthLogout />
+  <ul>
+    <li>
+      <NuxtLink to="/register">Регистрация</NuxtLink>
+    </li>
+    <li>
+      <NuxtLink to="/login">Логин</NuxtLink>
+    </li>
+  </ul>
 </template>
 
 <script setup>

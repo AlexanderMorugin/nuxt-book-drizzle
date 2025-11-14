@@ -17,7 +17,7 @@
       />
       <button type="submit">Войти</button>
     </form>
-    <div>formData: {{ formData }}</div>
+    <div v-if="loginMessage">loginMessage: {{ loginMessage }}</div>
   </div>
 </template>
 
@@ -29,13 +29,28 @@ const formData = ref({
   password: "",
 });
 
+const loginMessage = ref(null);
+
 const submitLogin = async () => {
-  const data = await userStore.loginUser(formData);
+  // const { data, status } = await userStore.loginUser(formData);
+  const { data, status, error } = await useFetch("/api/auth/login", {
+    method: "POST",
+    body: formData.value,
+  });
 
-  console.log("submitLogin: ", data.value[0]);
+  // console.log(data.value[0]);
+  // console.log(status.value);
 
-  if (data) {
+  if (status.value === "error") {
+    loginMessage.value = "Имя пользователя или пароль неверные.";
+  }
+
+  if (status.value === "success") {
+    loginMessage.value = "Авторизация прошла успешно!";
+    userStore.setCurrentUser(data.value[0]);
+
     return navigateTo("/");
+    // return navigateTo(`/${data.value[0].id}`);
   }
 };
 </script>

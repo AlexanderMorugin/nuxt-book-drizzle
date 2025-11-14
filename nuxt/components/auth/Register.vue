@@ -21,9 +21,15 @@
         v-model="formData.password"
         placeholder="Password"
       />
+      <input
+        type="password"
+        name="confirmPassword"
+        v-model="formData.confirmPassword"
+        placeholder="confirmPassword"
+      />
       <button type="submit">Создать</button>
     </form>
-    <div>formData: {{ formData }}</div>
+    <div v-if="registerMessage">registerMessage: {{ registerMessage }}</div>
   </div>
 </template>
 
@@ -34,12 +40,23 @@ const formData = ref({
   name: "",
   email: "",
   password: "",
+  confirmPassword: "",
+  book_for_years: 10,
 });
 
-const submitRegister = async () => {
-  const res = await userStore.createUser(formData);
+const registerMessage = ref(null);
 
-  console.log("submitRegister", res);
+const submitRegister = async () => {
+  const { data, status } = await userStore.createUser(formData);
+
+  if (status.value === "error") {
+    registerMessage.value = "Пользователь с такой почтой уже существует.";
+  }
+
+  if (status.value === "success") {
+    registerMessage.value = "Регистрация прошла успешно!";
+    navigateTo(`/login`);
+  }
 };
 </script>
 

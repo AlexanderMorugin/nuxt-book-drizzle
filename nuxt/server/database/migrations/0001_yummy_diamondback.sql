@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "book_for_years" integer;

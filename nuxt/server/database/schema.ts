@@ -5,7 +5,8 @@ export const Users = pgTable("users", {
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
   password: text("password").notNull(),
-  // book_for_years: integer(),
+  book_for_years: integer("book_for_years"),
+  refresh_token: text("refresh_token"),
 });
 
 export type userSchemaSelect = typeof Users.$inferSelect;

@@ -1,15 +1,21 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  // const userStore = useUserStore();
-  const cookie = useCookie("email");
+// export default defineNuxtRouteMiddleware(async (to, from) => {
+//   const userStore = useUserStore();
 
-  console.log("RouteMiddleware-middleware: ", cookie.value);
+//   const res = await useFetch("/api/auth/session");
+
+//   userStore.setCurrentUser(res.data.value[0]);
+// });
+
+export default defineNuxtRouteMiddleware(async (to, from) => {
+  const userStore = useUserStore();
+
+  const cookie = useCookie("refresh_token");
 
   if (!cookie.value) {
     return navigateTo("/login");
   }
 
-  // await userStore.findUserByEmail(cookie);
+  const { data, status, error } = await useFetch("/api/auth/session");
 
-  // console.log(session);
-  // return session;
+  userStore.setCurrentUser(data.value[0]);
 });
