@@ -1,0 +1,23 @@
+
+
+services:
+  nginx:
+    depends_on:
+      - nuxt
+    image: nginx:stable-alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./logs:/var/log/nginx/
+    restart: always
+
+  nuxt:
+    build: ./nuxt
+    environment:
+      DATABASE_URL: postgresql://admin:Cosmos1973@193.227.240.14:5432/my_db?schema=public
+      JWT_ACCESS_TOKEN_SECRET: my_secret_access_token
+      JWT_REFRESH_TOKEN_SECRET: my_secret_refresh_token
+    expose:
+      - '3000'
+    restart: always

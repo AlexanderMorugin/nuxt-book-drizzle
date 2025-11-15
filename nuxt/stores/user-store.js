@@ -19,23 +19,6 @@ export const useUserStore = defineStore("userStore", () => {
     return { data, status, error };
   };
 
-  // const loginUser = async (userData) => {
-  //   const { data, status, error } = await useFetch("/api/auth/login", {
-  //     method: "POST",
-  //     body: userData.value,
-  //   });
-
-  //   return { data, status, error };
-  // };
-
-  // const logoutUser = async () => {
-  //   user.value = null;
-
-  //   const { data, status, error } = await useFetch("/api/auth/logout");
-
-  //   return { data, status, error };
-  // };
-
   const setCurrentUser = (userData) => {
     user.value = userData;
   };
@@ -62,8 +45,6 @@ export const useUserStore = defineStore("userStore", () => {
     user,
     loadUsers,
     createUser,
-    // loginUser,
-    // logoutUser,
     setCurrentUser,
     logoutCurrentUser,
     deleteDatabaseUser,

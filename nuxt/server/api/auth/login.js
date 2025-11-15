@@ -55,5 +55,5 @@ export default defineEventHandler(async (event) => {
     .set({ refresh_token: refreshToken })
     .where(eq(Users.email, email));
 
-  return existUser;
+  return { access_token: accessToken, existUser };
 });

@@ -16,5 +16,4 @@ const logout = () => {
   location.reload();
   return navigateTo("/login");
 };
-// };
 </script>
